@@ -71,14 +71,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lbd-free-angular-cli:build"
+            "browserTarget": "nounou:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "lbd-free-angular-cli:build:production"
+              "browserTarget": "nounou:build:production"
             },
             "development": {
-              "browserTarget": "lbd-free-angular-cli:build:development"
+              "browserTarget": "nounou:build:development"
             },
             "defaultConfiguration": "development"
           }
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lbd-free-angular-cli:build"
+            "browserTarget": "nounou:build"
           }
         },
         "test": {
@@ -134,7 +134,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "lbd-free-angular-cli:serve"
+            "devServerTarget": "nounou:serve"
           }
         },
         "lint": {
