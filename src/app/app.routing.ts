@@ -1,38 +1,55 @@
-import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule,} from '@angular/common';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouterModule, Routes} from '@angular/router';
+import {TemplateComponent} from "./core/template/container/template.component";
+import {DisponibilitesComponent} from "./features/disponibilites/disponibilites.component";
+import {RechercheComponent} from "./features/recherche/recherche.component";
+import {MessagerieComponent} from "./features/messagerie/messagerie.component";
+import {InfosComponent} from "./features/infos/infos.component";
+import {HistoriqueComponent} from "./features/historique/historique.component";
 
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 
-const routes: Routes =[
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-  }, {
-    path: '',
-    component: AdminLayoutComponent,
-    children: [
-        {
-      path: '',
-      loadChildren: () => import('./layouts/admin-layout/admin-layout.module').then(x => x.AdminLayoutModule)
-  }]},
-  {
-    path: '**',
-    redirectTo: 'dashboard'
-  }
+const routes: Routes = [
+
+    {
+        path: '', component: TemplateComponent,
+        children: [
+            {
+                path: 'disponibilites',
+                component: DisponibilitesComponent
+            },
+            {
+                path: 'recherche',
+                component: RechercheComponent
+            },
+            {
+                path: 'messagerie',
+                component: MessagerieComponent
+            },
+            {
+                path: 'infos',
+                component: InfosComponent
+            },
+            {
+                path: 'historique',
+                component: HistoriqueComponent
+            }
+        ]
+    },
+    {path: '**', component: TemplateComponent}
+
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    RouterModule.forRoot(routes,{
-       useHash: true
-    })
-  ],
-  exports: [
-  ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        RouterModule.forRoot(routes, {
+            useHash: true
+        })
+    ],
+    exports: [],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

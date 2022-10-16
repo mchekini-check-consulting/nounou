@@ -5,7 +5,7 @@
             <div class="logo-img">
                 <img src="/assets/img/angular2-logo-white.png"/>
             </div>
-            Garde Enfants
+            Garde Enfants <span style="font-size: x-small; position: relative; left: 60px;">Version Nounou </span>
         </a>
     </div>
     <ul class="nav responsive-nav">
@@ -71,7 +71,7 @@
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
             <a  [routerLink]="[menuItem.path]">
                 <i class="{{menuItem.icon}}"></i>
-                <p>{{menuItem.title}}</p>
+                <p >{{menuItem.title}}</p>
             </a>
         </li>
     </ul>
