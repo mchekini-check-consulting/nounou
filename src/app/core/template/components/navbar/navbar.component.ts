@@ -1,9 +1,9 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {ROUTES} from "../sidebar/sidebar.component"
 import {Location} from '@angular/common';
+import {OidcSecurityService} from "angular-auth-oidc-client";
 
 @Component({
-    // moduleId: module.id,
     selector: 'navbar-cmp',
     templateUrl: 'navbar.component.html'
 })
@@ -13,8 +13,10 @@ export class NavbarComponent implements OnInit {
     location: Location;
     private toggleButton: any;
     private sidebarVisible: boolean;
+    public name: string;
 
-    constructor(location: Location, private element: ElementRef) {
+
+    constructor(location: Location, private element: ElementRef, private oidcSecurityService: OidcSecurityService) {
         this.location = location;
         this.sidebarVisible = false;
     }
@@ -23,6 +25,9 @@ export class NavbarComponent implements OnInit {
         this.listTitles = ROUTES.filter(listTitle => listTitle);
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
+        this.oidcSecurityService.userData$.subscribe(resp => {
+             this.name = resp.userData.name;
+        });
     }
 
     sidebarOpen() {
@@ -64,6 +69,10 @@ export class NavbarComponent implements OnInit {
                 return this.listTitles[item].title;
             }
         }
-        return 'Dashboard';
+        return '';
+    }
+
+    logout() {
+        this.oidcSecurityService.logoff();
     }
 }
