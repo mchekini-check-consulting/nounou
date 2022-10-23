@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {ROUTES} from "../sidebar/sidebar.component"
-import {Location} from '@angular/common';
-import {OidcSecurityService} from "angular-auth-oidc-client";
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { ROUTES } from "../sidebar/sidebar.component"
+import { Location } from '@angular/common';
+import { OidcSecurityService } from "angular-auth-oidc-client";
 
 @Component({
     selector: 'navbar-cmp',
@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
         const navbar: HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
         this.oidcSecurityService.userData$.subscribe(resp => {
-             this.name = resp.userData.name;
+            this.name = resp.userData.name;
         });
     }
 

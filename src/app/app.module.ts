@@ -16,7 +16,8 @@ import {AuthConfigModule} from "./auth-config.module";
         HttpClientModule,
         CoreModule,
         AppRoutingModule,
-        AuthConfigModule
+        AuthConfigModule,
+        HttpClientModule
     ],
     declarations: [
         AppComponent
