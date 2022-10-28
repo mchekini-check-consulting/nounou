@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  nounouApiUrl: '/api/v1/nounou'
+  nounouApiUrl: '/api/v1/nounous'
 };
