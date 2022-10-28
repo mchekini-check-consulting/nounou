@@ -6,7 +6,7 @@ import { environment } from '../environments/environment';
     imports: [
         AuthModule.forRoot({
             config: {
-                authority: 'http://54.83.239.110:10000/auth/realms/nounou',
+                authority: 'http://54.83.239.110:83/realms/nounou',
                 redirectUrl: window.location.origin,
                 postLogoutRedirectUri: window.location.origin,
                 clientId: 'nounou',
