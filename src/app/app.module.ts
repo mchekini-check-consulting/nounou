@@ -1,6 +1,6 @@
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModul, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from './app.routing';
 import {AppComponent} from './app.component';
@@ -15,7 +15,9 @@ import {BrowserModule} from "@angular/platform-browser";
         HttpClientModule,
         CoreModule,
         AppRoutingModule,
-        OAuthModule.forRoot()
+        OAuthModule.forRoot(),
+        ReactiveFormsModule,
+        ToastrModule.forRoot()
     ],
     declarations: [
         AppComponent
