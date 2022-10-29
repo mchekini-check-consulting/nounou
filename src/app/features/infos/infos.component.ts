@@ -3,6 +3,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { NounouService } from 'app/core/services/nounou/nounou.service';
 import { Nounou } from 'app/core/interfaces/nounou/nounou';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-infos',
@@ -10,6 +12,8 @@ import { Nounou } from 'app/core/interfaces/nounou/nounou';
   styleUrls: ['./infos.component.scss']
 })
 export class InfosComponent implements OnInit {
+  email: string;
+  pseudo: string;
   nounou: Nounou = {
     email: '',
     nom: '',
@@ -18,8 +22,18 @@ export class InfosComponent implements OnInit {
     numeroTelephone: '',
     pseudo: ''
   };
+  profileForm: FormGroup = this.formBuilder.group({
+    nom: this.formBuilder.control('', Validators.required),
+    prenom: this.formBuilder.control('', Validators.required),
+    adresse: this.formBuilder.control('', Validators.required),
+    numeroTelephone: this.formBuilder.control('', Validators.pattern('^0\\d{9}$'))
+  }, {
+    updateOn: 'change'
+  });
 
   constructor(
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder,
     private oidcSecurityService: OidcSecurityService,
     private nounouService: NounouService
   ) { }
@@ -27,20 +41,23 @@ export class InfosComponent implements OnInit {
   ngOnInit(): void {
     this.oidcSecurityService.userData$.subscribe({
       next: (response) => {
-        this.nounou.email = response.userData.email;
-        this.nounou.pseudo = response.userData.preferred_username;
-        this.nounou.nom = response.userData.family_name;
-        this.nounou.prenom = response.userData.given_name;
+        this.email = response.userData.email;
+        this.pseudo = response.userData.preferred_username;
         this.getNounouById(response.userData.email);
       }
     });
   }
 
+  submitProfileForm() {
+    if (this.profileForm.valid) {
+      this.updateNounou(this.nounou.email, this.nounou);
+    }
+  }
+
   public getNounouById(email: string): void {
     this.nounouService.getNounouById(email).subscribe({
       next: (response: Nounou) => {
-        this.nounou.numeroTelephone = response.numeroTelephone;
-        this.nounou.adresse = response.adresse;
+        this.nounou = response;
       },
       error: (error: HttpErrorResponse) => {
         console.error(error.message);
@@ -48,4 +65,14 @@ export class InfosComponent implements OnInit {
     });
   }
 
+  public updateNounou(email: string, nounou: Nounou): void {
+    this.nounouService.updateNounou(email, nounou).subscribe({
+      next: (response: Nounou) => {
+        this.toastr.success('Profile mis à jour avec succès');
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error.message);
+      }
+    });
+  }
 }

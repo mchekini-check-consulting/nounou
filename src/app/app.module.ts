@@ -1,12 +1,13 @@
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NgModule} from '@angular/core';
-import {FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import {RouterModule} from '@angular/router';
-import {AppRoutingModule} from './app.routing';
-import {AppComponent} from './app.component';
-import {CoreModule} from "./core/core.module";
-import {AuthConfigModule} from "./auth-config.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app.routing';
+import { AppComponent } from './app.component';
+import { CoreModule } from "./core/core.module";
+import { AuthConfigModule } from "./auth-config.module";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     imports: [
@@ -17,7 +18,9 @@ import {AuthConfigModule} from "./auth-config.module";
         CoreModule,
         AppRoutingModule,
         AuthConfigModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule,
+        ToastrModule.forRoot()
     ],
     declarations: [
         AppComponent

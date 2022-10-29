@@ -5,6 +5,7 @@ import { RechercheComponent } from './recherche/recherche.component';
 import { MessagerieComponent } from './messagerie/messagerie.component';
 import { HistoriqueComponent } from './historique/historique.component';
 import { InfosComponent } from './infos/infos.component';
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { InfosComponent } from './infos/infos.component';
     ],
 
     imports: [
-        CommonModule
+        CommonModule,
+        ReactiveFormsModule
     ]
 })
 export class FeaturesModule {
