@@ -19,6 +19,7 @@ node("ci-node") {
             try {
                 sh "sudo docker stop nounou"
                 sh "sudo docker rm nounou"
+                sh "sudo docker rmi mchekini/nounou:1.0"
             }catch(Exception e){
                println "No container nounou running"
             }
