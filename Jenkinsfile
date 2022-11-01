@@ -3,7 +3,7 @@ node("ci-node"){
         checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mchekini-check-consulting/nounou-ui.git']]])
     }
     stage("build") {
-
+        sh "npm run build"
     }
     stage("build docker image") {
 
