@@ -10,7 +10,9 @@ node("ci-node") {
         sh "sudo docker build -t nounou ."
     }
     stage("push docker image") {
-
+       sh "sudo docker login -u mchekini -p jskabyliE"
+       sh "sudo docker tag nounou mchekini/nounou:1.0"
+       sh "sudo docker push mchekini/nounou:1.0"
     }
     stage("deploy nounou ui") {
 
