@@ -14,7 +14,16 @@ import { ToastrService } from 'ngx-toastr';
 export class InfosComponent implements OnInit {
   email: string;
   pseudo: string;
+  JSON: any = JSON;
   nounou: Nounou = {
+    email: '',
+    nom: '',
+    prenom: '',
+    adresse: '',
+    numeroTelephone: '',
+    pseudo: ''
+  };
+  nounouOld: Nounou = {
     email: '',
     nom: '',
     prenom: '',
@@ -26,7 +35,7 @@ export class InfosComponent implements OnInit {
     nom: this.formBuilder.control('', Validators.required),
     prenom: this.formBuilder.control('', Validators.required),
     adresse: this.formBuilder.control('', Validators.required),
-    numeroTelephone: this.formBuilder.control('', Validators.pattern('^0\\d{9}$'))
+    numeroTelephone: this.formBuilder.control('', [Validators.required, Validators.pattern('^0\\d{9}$')])
   }, {
     updateOn: 'change'
   });
@@ -58,6 +67,7 @@ export class InfosComponent implements OnInit {
     this.nounouService.getNounouById(email).subscribe({
       next: (response: Nounou) => {
         this.nounou = response;
+        this.nounouOld = { ...response };
       },
       error: (error: HttpErrorResponse) => {
         console.error(error.message);
