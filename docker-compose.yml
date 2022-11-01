@@ -1,0 +1,20 @@
+version: '2'
+services:
+  nounou:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nounou
+    image: nounou
+    ports:
+      - "80:80"
+  keycloak:
+    image: jboss/keycloak:7.0.1
+    container_name: keycloak
+    ports:
+      - "10000:8080"
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - PROXY_ADDRESS_FORWARDING=true
+    user: root
