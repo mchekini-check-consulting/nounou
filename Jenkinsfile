@@ -16,7 +16,13 @@ node("ci-node") {
     }
     node("integration-node") {
         stage("deploy nounou ui") {
-          println "je m'execute sur le bon node"
+            try {
+                sh "sudo docker stop nounou"
+                sh "sudo docker rm nounou"
+            }catch(Exception e){
+               println "No container nounou running"
+            }
+          sh "sudo docker run -p 80:80 --name nounou -d mchekini/nounou:1.0"
         }
     }
 
