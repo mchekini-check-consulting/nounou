@@ -4,7 +4,7 @@ node("ci-node") {
     }
     stage("build") {
         sh "npm install"
-        sh "npm run build --configuration production"
+        sh "ng build --configuration production"
     }
     stage("build docker image") {
         sh "sudo docker build -t nounou ."
