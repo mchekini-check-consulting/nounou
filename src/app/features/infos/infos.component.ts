@@ -64,18 +64,6 @@ export class InfosComponent implements OnInit {
     }
   }
 
-  submitProfileForm() {
-    if (this.profileForm.valid) {
-      this.updateNounou(this.nounou.email, this.nounou);
-    }
-  }
-
-  submitProfileForm() {
-    if (this.profileForm.valid) {
-      this.updateNounou(this.nounou.email, this.nounou);
-    }
-  }
-
   public getNounouById(email: string): void {
     this.nounouService.getNounouById(email).subscribe({
       next: (response: Nounou) => {
