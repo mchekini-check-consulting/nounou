@@ -48,7 +48,7 @@ export class InfosComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.oAuthService.hasValidAccessToken) {
+    if (!this.oAuthService.hasValidAccessToken()) {
       this.oAuthService.logOut();
     }
     else {
@@ -56,13 +56,6 @@ export class InfosComponent implements OnInit {
       this.pseudo = this.oAuthService.getIdentityClaims()['preferred_username'];
       this.getNounouById(this.email);
     }
-    // this.oidcSecurityService.userData$.subscribe({
-    //   next: (response) => {
-    //     this.email = response.userData.email;
-    //     this.pseudo = response.userData.preferred_username;
-    //     this.getNounouById(response.userData.email);
-    //   }
-    // });
   }
 
   submitProfileForm() {
