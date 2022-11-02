@@ -20,6 +20,13 @@ node("ci-node") {
 
     node("qualif-node") {
         stage("deploy") {
+            try{
+                sh "sudo docker stop nounou-ui"
+                sh "sudo docker rm nounou-ui"
+                sh "sudo docker rmi mchekini/nounou-ui-qua:1.0"
+            }catch(Exception e){
+                println "Aucun conteneur avec le nom nounou-ui n'est présent"
+            }
             sh "sudo docker run --name nounou-ui -p 80:80 -d mchekini/nounou-ui-qua:1.0"
         }
     }
