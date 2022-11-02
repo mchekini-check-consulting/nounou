@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { NounouService } from 'app/core/services/nounou/nounou.service';
 import { Nounou } from 'app/core/interfaces/nounou/nounou';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -43,18 +43,26 @@ export class InfosComponent implements OnInit {
   constructor(
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
-    private oidcSecurityService: OidcSecurityService,
+    private oAuthService: OAuthService,
     private nounouService: NounouService
   ) { }
 
   ngOnInit(): void {
-    this.oidcSecurityService.userData$.subscribe({
-      next: (response) => {
-        this.email = response.userData.email;
-        this.pseudo = response.userData.preferred_username;
-        this.getNounouById(response.userData.email);
-      }
-    });
+    if (!this.oAuthService.hasValidAccessToken) {
+      this.oAuthService.logOut();
+    }
+    else {
+      this.email = this.oAuthService.getIdentityClaims()['email'];
+      this.pseudo = this.oAuthService.getIdentityClaims()['preferred_username'];
+      this.getNounouById(this.email);
+    }
+    // this.oidcSecurityService.userData$.subscribe({
+    //   next: (response) => {
+    //     this.email = response.userData.email;
+    //     this.pseudo = response.userData.preferred_username;
+    //     this.getNounouById(response.userData.email);
+    //   }
+    // });
   }
 
   submitProfileForm() {
