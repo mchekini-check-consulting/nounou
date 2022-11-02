@@ -1,25 +1,25 @@
-node("ci-node"){
-    stage("checkout"){
-        checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mchekini-check-consulting/famille-ui.git']]])
+node("ci-node") {
+    stage("checkout") {
+        checkout([$class: 'GitSCM', branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mchekini-check-consulting/nounou-ui.git']]])
     }
 
-    stage("build"){
+    stage("build") {
         sh "npm install"
         sh "ng build --configuration production"
     }
 
-    stage("build docker image"){
+    stage("build docker image") {
         sh "sudo docker build -t nounou-ui-qua ."
     }
 
-    stage("Push image to Docker hub"){
+    stage("Push image to Docker hub") {
         sh "sudo docker login -u mchekini -p jskabyliE"
         sh "sudo docker tag nounou-ui-qua mchekini/nounou-ui-qua:1.0"
         sh "sudo docker push mchekini/nounou-ui-qua:1.0"
     }
 
-    node("qualif-node"){
-        stage("deploy"){
+    node("qualif-node") {
+        stage("deploy") {
             sh "sudo docker run --name nounou-ui -p 80:80 -d mchekini/nounou-ui-qua:1.0"
         }
     }
