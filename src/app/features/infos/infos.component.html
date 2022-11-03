@@ -1,1 +1,78 @@
-<h1>Fonctionnalité à développer</h1>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div>
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Mes Informations</h4>
+                    </div>
+                    <div class="content">
+                        <form [formGroup]="profileForm" (ngSubmit)="submitProfileForm()">
+                            <div class=" row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Pseudo</label>
+                                        <input type="text" class="form-control" placeholder="Username" disabled
+                                            [value]="pseudo">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Adresse mail</label>
+                                        <input type="email" class="form-control" placeholder="Adresse mail" disabled
+                                            [value]="email">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nom</label>
+                                        <input type="text" class="form-control" placeholder="Nom"
+                                            [(ngModel)]="nounou.nom" formControlName="nom" required>
+                                        <span *ngIf="profileForm.get('nom')?.invalid" class="invalid">Nom
+                                            requis</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Prénom</label>
+                                        <input type="text" class="form-control" placeholder="Prénom"
+                                            [(ngModel)]="nounou.prenom" formControlName="prenom" required>
+                                        <span *ngIf="profileForm.get('prenom')?.invalid" class="invalid">Prénom
+                                            requis</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Adresse domicile</label>
+                                        <input type="text" class="form-control" placeholder="Adresse domicile"
+                                            [(ngModel)]="nounou.adresse" formControlName="adresse">
+                                        <span *ngIf="profileForm.get('adresse')?.invalid" class="invalid">Adresse
+                                            requise</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Numéro de téléphone</label>
+                                        <input type="tel" class="form-control" placeholder="Numéro de téléphone"
+                                            [(ngModel)]="nounou.numeroTelephone" formControlName="numeroTelephone">
+                                        <span *ngIf="profileForm.get('numeroTelephone')?.invalid" class="invalid">Le
+                                            numéro de téléphone n&apos;est pas valide</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-info btn-fill pull-right"
+                                [disabled]="profileForm.invalid || profileForm.pristine || JSON.stringify(nounou) === JSON.stringify(nounouOld)">Enregistrer</button>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
