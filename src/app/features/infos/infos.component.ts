@@ -35,7 +35,7 @@ export class InfosComponent implements OnInit {
     nom: this.formBuilder.control('', Validators.required),
     prenom: this.formBuilder.control('', Validators.required),
     adresse: this.formBuilder.control('', Validators.required),
-    numeroTelephone: this.formBuilder.control('', [Validators.required, Validators.pattern('^0\\d{9}$')])
+    numeroTelephone: this.formBuilder.control('', [Validators.required, Validators.pattern(/^(?:0|(?:\+|00)33\s?)[1-9](?:\s?\d{2}){4}$/)])
   }, {
     updateOn: 'change'
   });
