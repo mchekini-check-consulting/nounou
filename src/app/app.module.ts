@@ -7,7 +7,7 @@ import {AppComponent} from './app.component';
 import {CoreModule} from "./core/core.module";
 import {OAuthModule} from "angular-oauth2-oidc";
 import {BrowserModule} from "@angular/platform-browser";
-import { ToastrModule } from "ngx-toastr";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     imports: [
