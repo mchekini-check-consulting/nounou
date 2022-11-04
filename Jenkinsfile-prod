@@ -16,23 +16,23 @@ node("ci-node") {
         sh "ng build --configuration production"
     }
     stage("build docker image") {
-        sh "sudo docker build -t nounou-ui-prd ."
+        sh "sudo docker build -t nounou-ui-prod ."
     }
     stage("push docker image") {
         sh "sudo docker login -u mchekini -p jskabyliE"
-        sh "sudo docker tag nounou-ui-prd mchekini/nounou-ui-prd:1.0"
-        sh "sudo docker push mchekini/nounou-ui-prd:1.0"
+        sh "sudo docker tag nounou-ui-prod mchekini/nounou-ui-prod:1.0"
+        sh "sudo docker push mchekini/nounou-ui-prod:1.0"
     }
     node("integration-node") {
         stage("deploy nounou ui") {
             try {
-                sh "sudo docker stop nounou-ui-prd-c"
-                sh "sudo docker rm nounou-ui-prd-c"
-                sh "sudo docker rmi mchekini/nounou-ui-prd:1.0"
+                sh "sudo docker stop nounou-ui-prod-c"
+                sh "sudo docker rm nounou-ui-prod-c"
+                sh "sudo docker rmi mchekini/nounou-ui-prod:1.0"
             } catch (Exception e) {
-                println "No container nounou-ui-prd-c running"
+                println "No container nounou-ui-prod-c running"
             }
-            sh "sudo docker run -p 80:80 --name nounou-ui-prd-c -d mchekini/nounou-ui-prd:1.0"
+            sh "sudo docker run -p 80:80 --name nounou-ui-prod-c -d mchekini/nounou-ui-prod:1.0"
         }
     }
 
