@@ -23,7 +23,7 @@ node("ci-node") {
         sh "sudo docker tag nounou-ui-prod mchekini/nounou-ui-prod:1.0"
         sh "sudo docker push mchekini/nounou-ui-prod:1.0"
     }
-    node("integration-node") {
+    node("prod-node") {
         stage("deploy nounou ui") {
             try {
                 sh "sudo docker stop nounou-ui-prod-c"
