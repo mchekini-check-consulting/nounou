@@ -7,15 +7,15 @@ import { Nounou } from 'app/core/interfaces/nounou/nounou';
   providedIn: 'root'
 })
 export class NounouService {
-  private nounouApiUrl = '/nounou-api/api/v1/nounous';
+  private nounouApiUrl = '/api/v1/nounou';
 
   constructor(private http: HttpClient) { }
 
   public getNounouById(email: string): Observable<Nounou> {
-    return this.http.get<Nounou>(`${this.nounouApiUrl}/${email}`);
+    return this.http.get<Nounou>(`${this.nounouApiUrl}/get`);
   }
 
   public updateNounou(email: string, nounou: Nounou): Observable<Nounou> {
-    return this.http.put<Nounou>(`${this.nounouApiUrl}/${email}`, nounou);
+    return this.http.put<Nounou>(`${this.nounouApiUrl}/udpate`, nounou);
   }
 }
