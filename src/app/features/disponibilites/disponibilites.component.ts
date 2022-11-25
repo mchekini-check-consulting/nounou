@@ -159,4 +159,8 @@ export class DisponibilitesComponent implements OnInit {
     })
   }
 
+  printData(): void {
+    console.log(this.tableData);
+  }
+
 }
