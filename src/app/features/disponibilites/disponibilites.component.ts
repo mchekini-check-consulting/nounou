@@ -159,8 +159,15 @@ export class DisponibilitesComponent implements OnInit {
     })
   }
 
-  printData(): void {
-    console.log(this.tableData);
+  public getDisponibiliteById(email: string): void {
+    this.disponibiliteService.getDisponibiliteById(email).subscribe({
+      next: (response: Disponibilite[]) => {
+        console.log(response)
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error.message);
+      }
+    });
   }
 
 }
