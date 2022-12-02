@@ -22,7 +22,18 @@ declare interface TableData {
   styleUrls: ['./disponibilites.component.scss']
 })
 export class DisponibilitesComponent implements OnInit {
-  public tableData: TableData;
+  public tableData: TableData = {
+    headerRow: ['', 'Matin', 'Midi', 'Soir'],
+    dataRows: [
+      { jour: 'Lundi', matin: false, midi: false, soir: false },
+      { jour: 'Mardi', matin: false, midi: false, soir: false },
+      { jour: 'Mercredi', matin: false, midi: false, soir: false },
+      { jour: 'Jeudi', matin: false, midi: false, soir: false },
+      { jour: 'Vendredi', matin: false, midi: false, soir: false },
+      { jour: 'Samedi', matin: false, midi: false, soir: false },
+      { jour: 'Dimanche', matin: false, midi: false, soir: false },
+    ]
+  };
   disponibilite: Disponibilite = {
     id: null,
     jour: null,
@@ -38,21 +49,9 @@ export class DisponibilitesComponent implements OnInit {
   constructor(
     private oAuthService: OAuthService,
     private disponibiliteService: DisponibiliteService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-    this.tableData = {
-        headerRow: [ 'Jour', 'Matin', 'Midi', 'Soir'],
-        dataRows: [
-            { jour:'Lundi', matin: false, midi: false, soir: false },
-            { jour:'Mardi', matin: false, midi: false, soir: false },
-            { jour:'Mercredi', matin: false, midi: false, soir: false },
-            { jour:'Jeudi', matin: false, midi: false, soir: false },
-            { jour:'Vendredi', matin: false, midi: false, soir: false },
-            { jour:'Samedi', matin: false, midi: false, soir: false },
-            { jour:'Dimanche', matin: false, midi: false, soir: false },
-        ]
-    };
     if (!this.oAuthService.hasValidAccessToken()) {
       this.oAuthService.logOut();
     }
@@ -65,7 +64,17 @@ export class DisponibilitesComponent implements OnInit {
   public getDisponibiliteById(email: string): void {
     this.disponibiliteService.getDisponibiliteById(email).subscribe({
       next: (response: Disponibilite[]) => {
-        console.log(response)
+        let days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+        let temp = [];
+        response.forEach(elt => {
+          temp.push({
+            jour: days[elt.jour - 1],
+            matin: elt.date_debut_matin && elt.date_fin_matin,
+            midi: elt.date_debut_midi && elt.date_fin_midi,
+            soir: elt.date_debut_soir && elt.date_fin_soir,
+          });
+        });
+        this.tableData.dataRows = temp;
       },
       error: (error: HttpErrorResponse) => {
         console.error(error.message);
