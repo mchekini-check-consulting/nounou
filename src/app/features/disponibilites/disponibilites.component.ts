@@ -5,7 +5,6 @@ import { Disponibilite } from 'app/core/interfaces/disponibilite/disponibilite.m
 import { DisponibiliteService } from 'app/core/services/disponibilite/disponibilite.service'
 import { ToastrService } from 'ngx-toastr'
 import * as _ from 'lodash'
-import { cloneDeep } from 'lodash'
 
 const DAYS = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
 
