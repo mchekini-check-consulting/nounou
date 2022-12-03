@@ -11,7 +11,15 @@ export class DisponibiliteService {
 
   constructor(private http: HttpClient) { }
 
-  public getDisponibiliteById(email: string): Observable<Disponibilite[]> {
+  public getDisponibiliteByNounouId(email: string): Observable<Disponibilite[]> {
     return this.http.get<Disponibilite[]>(`${this.disponibiliteApiUrl}/${email}`);
+  }
+
+  public updateDisponibiliteByNounouId(body: Disponibilite[]): Observable<Disponibilite[]> {
+    return this.http.post<Disponibilite[]>(`${this.disponibiliteApiUrl}`, body);
+  }
+
+  public deleteDisponibiliteByNounouId(): Observable<void> {
+    return this.http.delete<void>(`${this.disponibiliteApiUrl}`);
   }
 }
