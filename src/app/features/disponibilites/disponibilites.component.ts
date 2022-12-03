@@ -162,22 +162,51 @@ export class DisponibilitesComponent implements OnInit {
   public getDisponibiliteById(email: string): void {
     this.disponibiliteService.getDisponibiliteById(email).subscribe({
       next: (response: Disponibilite[]) => {
-        let days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-        let temp = [];
+        let temp = []
         response.forEach(elt => {
           temp.push({
-            jour: days[elt.jour - 1],
-            matin: elt.date_debut_matin && elt.date_fin_matin,
-            midi: elt.date_debut_midi && elt.date_fin_midi,
-            soir: elt.date_debut_soir && elt.date_fin_soir,
-          });
-        });
-        this.tableData.dataRows = temp;
+            jour: DAYS[elt.jour],
+            matin: elt.date_debut_matin && elt.date_fin_matin ? true : false,
+            midi: elt.date_debut_midi && elt.date_fin_midi ? true : false,
+            soir: elt.date_debut_soir && elt.date_fin_soir ? true : false,
+          })
+        })
+        if (temp.length !== 0) {
+          this.tableData.dataRows = _.cloneDeep(temp)
+          this.tableDataOld.dataRows = _.cloneDeep(temp)
+        }
       },
       error: (error: HttpErrorResponse) => {
-        console.error(error.message);
+        console.error(error.message)
       }
-    });
+    })
+  }
+
+  updateDisponibiliteByNounouId(body: Disponibilite[]): void {
+    this.disponibiliteService.updateDisponibiliteByNounouId(body).subscribe({
+      next: (response: Disponibilite[]) => {
+        this.tableDataOld = _.cloneDeep(this.tableData)
+        this.toastr.success('Disponibilités enregistrées avec succès')
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error.message)
+        this.toastr.error('Il y a eu un souci lors de l\'enregistrement de vos Disponibilités')
+      }
+    })
+  }
+
+  deleteDisponibiliteByNounouId() {
+    this.disponibiliteService.deleteDisponibiliteByNounouId().subscribe({
+      next: () => {
+        this.tableData = _.cloneDeep(this.emptyTable)
+        this.tableDataOld = _.cloneDeep(this.emptyTable)
+        this.toastr.success('Disponibilités supprimées avec succès')
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error(error.message)
+        this.toastr.error('Il y a eu un souci lors de la suppression de vos Disponibilités')
+      }
+    })
   }
 
 }
