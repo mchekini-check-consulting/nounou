@@ -25,4 +25,23 @@ export class ChatService {
       "api/v1/search/famille?nom=&prenom=&ville="
     );
   }
+
+  getUnreadMessages(): Observable<Number> {
+    return this.http.get<Number>(this.chatApiUrl + "/get-unread-msg");
+  }
+
+  getUnreadMessagesByFamille(): Observable<[string, number]> {
+    return this.http.get<[string, number]>(
+      this.chatApiUrl + "/get-unread-msg-by-famille"
+    );
+  }
+
+  setMessageRead(emailSource: string, emailDest: string) {
+    return this.http
+      .put(this.chatApiUrl + "/set-msg-read", {
+        emailSource,
+        emailDest,
+      })
+      .pipe();
+  }
 }
