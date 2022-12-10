@@ -1,14 +1,17 @@
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AppRoutingModule} from './app.routing';
-import {AppComponent} from './app.component';
-import {CoreModule} from "./core/core.module";
-import {OAuthModule} from "angular-oauth2-oidc";
-import {BrowserModule} from "@angular/platform-browser";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app.routing';
+import { AppComponent } from './app.component';
+import { CoreModule } from "./core/core.module";
+import { OAuthModule } from "angular-oauth2-oidc";
+import { BrowserModule } from "@angular/platform-browser";
 import { ToastrModule } from 'ngx-toastr';
-import {HttpRequestInterceptor} from "./core/interceptors/httpRequestInerceptor";
+import { HttpRequestInterceptor } from "./core/interceptors/httpRequestInerceptor"
+import { DatePipe } from "@angular/common";
+import { FeaturesModule } from './features/features.module';
+import { DisponibilitesCanDeactivateGuard } from './core/guards/disponibilitesCanDeactivateGuard';
 
 @NgModule({
     imports: [
@@ -20,19 +23,20 @@ import {HttpRequestInterceptor} from "./core/interceptors/httpRequestInerceptor"
         AppRoutingModule,
         OAuthModule.forRoot(),
         ReactiveFormsModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        FeaturesModule
     ],
-    declarations: [
-        AppComponent
-    ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+    declarations: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: HttpRequestInterceptor,
-            multi: true
-        }
+      DatePipe,
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: HttpRequestInterceptor,
+        multi: true,
+      },
+      DisponibilitesCanDeactivateGuard
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
