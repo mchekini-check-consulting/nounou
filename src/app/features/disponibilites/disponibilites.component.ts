@@ -97,8 +97,8 @@ export class DisponibilitesComponent implements OnInit {
 						date_debut_matin: !dataRow.matin ? '' : new Date(newDate.setHours(7, 0, 0, 0)),
 						date_fin_matin: !dataRow.matin ? '' : new Date(newDate.setHours(12, 0, 0, 0)),
 						date_debut_midi: !dataRow.midi ? '' : new Date(newDate.setHours(12, 0, 0, 0)),
-						date_fin_midi: !dataRow.midi ? '' : new Date(newDate.setHours(17, 0, 0, 0)),
-						date_debut_soir: !dataRow.soir ? '' : new Date(newDate.setHours(17, 0, 0, 0)),
+						date_fin_midi: !dataRow.midi ? '' : new Date(newDate.setHours(18, 0, 0, 0)),
+						date_debut_soir: !dataRow.soir ? '' : new Date(newDate.setHours(18, 0, 0, 0)),
 						date_fin_soir: !dataRow.soir ? '' : new Date(newDate.setHours(22, 0, 0, 0)),
 						nounouId: email
 					})
