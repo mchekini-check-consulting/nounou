@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component'
 import * as _ from 'lodash'
 
-const DAYS = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
+const DAYS = ['Samedi', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
 
 declare interface TableRow {
 	jour: string
@@ -31,13 +31,13 @@ export class DisponibilitesComponent implements OnInit {
 	emptyTable: TableData = {
 		headerRow: ['', 'Matin', 'Midi', 'Soir'],
 		dataRows: [
+			{ jour: 'Samedi', matin: false, midi: false, soir: false },
 			{ jour: 'Dimanche', matin: false, midi: false, soir: false },
 			{ jour: 'Lundi', matin: false, midi: false, soir: false },
 			{ jour: 'Mardi', matin: false, midi: false, soir: false },
 			{ jour: 'Mercredi', matin: false, midi: false, soir: false },
 			{ jour: 'Jeudi', matin: false, midi: false, soir: false },
 			{ jour: 'Vendredi', matin: false, midi: false, soir: false },
-			{ jour: 'Samedi', matin: false, midi: false, soir: false },
 		]
 	}
 	tableData: TableData = _.cloneDeep(this.emptyTable)
