@@ -26,22 +26,36 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Nom</label>
                                         <input type="text" class="form-control" placeholder="Nom"
                                             [(ngModel)]="nounou.nom" formControlName="nom" required>
-                                        <span *ngIf="profileForm.get('nom')?.invalid && profileForm.get('nom')?.touched" class="invalid">Nom
+                                        <span *ngIf="profileForm.get('nom')?.invalid && profileForm.get('nom')?.touched"
+                                            class="invalid">Nom
                                             requis</span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Prénom</label>
                                         <input type="text" class="form-control" placeholder="Prénom"
                                             [(ngModel)]="nounou.prenom" formControlName="prenom" required>
-                                        <span *ngIf="profileForm.get('prenom')?.invalid && profileForm.get('prenom')?.touched" class="invalid">Prénom
+                                        <span
+                                            *ngIf="profileForm.get('prenom')?.invalid && profileForm.get('prenom')?.touched"
+                                            class="invalid">Prénom
                                             requis</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Numéro de téléphone</label>
+                                        <input type="tel" class="form-control" placeholder="Numéro de téléphone"
+                                            [(ngModel)]="nounou.numeroTelephone" formControlName="numeroTelephone">
+                                        <span
+                                            *ngIf="profileForm.get('numeroTelephone')?.invalid && profileForm.get('numeroTelephone')?.touched"
+                                            class="invalid">Le
+                                            numéro de téléphone n&apos;est pas valide</span>
                                     </div>
                                 </div>
                             </div>
@@ -49,24 +63,38 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Adresse domicile</label>
-                                        <input type="text" class="form-control" placeholder="Adresse domicile"
-                                            [(ngModel)]="nounou.adresse" formControlName="adresse">
-                                        <span *ngIf="profileForm.get('adresse')?.invalid && profileForm.get('adresse')?.touched" class="invalid">Adresse
+                                        <label>Rue</label>
+                                        <input type="text" class="form-control" placeholder="Rue"
+                                            [(ngModel)]="nounou.rue" formControlName="rue">
+                                        <span *ngIf="profileForm.get('rue')?.invalid && profileForm.get('rue')?.touched"
+                                            class="invalid">Adresse
                                             requise</span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <div class="form-group">
-                                        <label>Numéro de téléphone</label>
-                                        <input type="tel" class="form-control" placeholder="Numéro de téléphone"
-                                            [(ngModel)]="nounou.numeroTelephone" formControlName="numeroTelephone">
-                                        <span *ngIf="profileForm.get('numeroTelephone')?.invalid && profileForm.get('numeroTelephone')?.touched" class="invalid">Le
-                                            numéro de téléphone n&apos;est pas valide</span>
+                                        <label>Code postal</label>
+                                        <input type="text" class="form-control" placeholder="Code postal"
+                                            [(ngModel)]="nounou.codePostal" formControlName="codePostal">
+                                        <span
+                                            *ngIf="profileForm.get('codePostal')?.invalid && profileForm.get('codePostal')?.touched"
+                                            class="invalid">Adresse
+                                            requise</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Ville</label>
+                                        <input type="text" class="form-control" placeholder="Ville"
+                                            [(ngModel)]="nounou.ville" formControlName="ville">
+                                        <span
+                                            *ngIf="profileForm.get('ville')?.invalid && profileForm.get('ville')?.touched"
+                                            class="invalid">Adresse
+                                            requise</span>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-info btn-fill pull-right"
+                            <button type="submit" mat-raised-button color="primary" class="pull-right"
                                 [disabled]="profileForm.invalid || profileForm.pristine || JSON.stringify(nounou) === JSON.stringify(nounouOld)">Enregistrer</button>
                             <div class="clearfix"></div>
                         </form>

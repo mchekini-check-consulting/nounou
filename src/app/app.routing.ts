@@ -8,6 +8,7 @@ import {InfosComponent} from "./features/infos/infos.component";
 import {HistoriqueComponent} from "./features/historique/historique.component";
 import {CommonModule} from "@angular/common";
 import {BrowserModule} from "@angular/platform-browser";
+import { DisponibilitesCanDeactivateGuard } from './core/guards/disponibilitesCanDeactivateGuard';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
         children: [
             {
                 path: 'disponibilites',
-                component: DisponibilitesComponent
+                component: DisponibilitesComponent,
+                canDeactivate: [DisponibilitesCanDeactivateGuard]
             },
             {
                 path: 'recherche',

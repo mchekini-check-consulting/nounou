@@ -43,9 +43,12 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-info btn-fill pull-right" (click)="onSave()" [disabled]="didDataChange()">Enregistrer</button>
-                        <button type="button" class="btn btn-secondary btn-fill pull-right" (click)="onCancel()" [disabled]="didDataChange()">Annuler</button>
-                        <button type="button" class="btn btn-danger btn-fill" (click)="onDelete()">Supprimer toutes les disponibilités</button>
+                        <button type="button" mat-raised-button color="warn" (click)="onDelete()"
+                            [disabled]="isOldTableEmpty()">Supprimer toutes les disponibilités</button>
+                        <button type="button" mat-raised-button color="primary" class="pull-right" (click)="onSave()"
+                            [disabled]="didDataChange()">Enregistrer</button>
+                        <button type="button" mat-raised-button color="basic" class="pull-right" (click)="onCancel()"
+                            [disabled]="didDataChange()">Annuler</button>
                         <div class="clearfix"></div>
                     </div>
                 </div>

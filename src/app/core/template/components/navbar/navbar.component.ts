@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {ROUTES} from "../sidebar/sidebar.component"
-import {Location} from '@angular/common';
-import {OAuthService} from "angular-oauth2-oidc";
-import {filter} from "rxjs/operators";
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { ROUTES } from "../sidebar/sidebar.component"
+import { Location } from '@angular/common';
+import { OAuthService } from "angular-oauth2-oidc";
+import { filter } from "rxjs/operators";
 
 @Component({
     selector: 'navbar-cmp',

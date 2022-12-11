@@ -19,7 +19,9 @@ export class InfosComponent implements OnInit {
     email: '',
     nom: '',
     prenom: '',
-    adresse: '',
+    rue: '',
+    codePostal: '',
+    ville: '',
     numeroTelephone: '',
     pseudo: ''
   };
@@ -27,14 +29,18 @@ export class InfosComponent implements OnInit {
     email: '',
     nom: '',
     prenom: '',
-    adresse: '',
+    rue: '',
+    codePostal: '',
+    ville: '',
     numeroTelephone: '',
     pseudo: ''
   };
   profileForm: FormGroup = this.formBuilder.group({
     nom: this.formBuilder.control('', Validators.required),
     prenom: this.formBuilder.control('', Validators.required),
-    adresse: this.formBuilder.control('', Validators.required),
+    rue: this.formBuilder.control('', Validators.required),
+    codePostal: this.formBuilder.control('', Validators.required),
+    ville: this.formBuilder.control('', Validators.required),
     numeroTelephone: this.formBuilder.control('', [Validators.required, Validators.pattern(/^(?:0|(?:\+|00)33\s?)[1-9](?:\s?\d{2}){4}$/)])
   }, {
     updateOn: 'change'
