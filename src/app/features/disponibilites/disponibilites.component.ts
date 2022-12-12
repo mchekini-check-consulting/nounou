@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr'
 import { MatDialog } from '@angular/material/dialog'
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component'
 import * as _ from 'lodash'
+import { of } from 'rxjs'
 
 const DAYS = ['Samedi', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi']
 
@@ -89,19 +90,19 @@ export class DisponibilitesComponent implements OnInit {
 				let date = new Date()
 				let disponibilites = []
 				this.tableData.dataRows.forEach(dataRow => {
-					let currentDay = DAYS.indexOf(dataRow.jour)
-					let newDate = new Date(date.setDate(date.getDate() - date.getDay() + currentDay))
-					disponibilites.push({
-						id: 0,
-						jour: currentDay,
-						date_debut_matin: !dataRow.matin ? '' : new Date(newDate.setHours(7, 0, 0, 0)),
-						date_fin_matin: !dataRow.matin ? '' : new Date(newDate.setHours(12, 0, 0, 0)),
-						date_debut_midi: !dataRow.midi ? '' : new Date(newDate.setHours(12, 0, 0, 0)),
-						date_fin_midi: !dataRow.midi ? '' : new Date(newDate.setHours(18, 0, 0, 0)),
-						date_debut_soir: !dataRow.soir ? '' : new Date(newDate.setHours(18, 0, 0, 0)),
-						date_fin_soir: !dataRow.soir ? '' : new Date(newDate.setHours(22, 0, 0, 0)),
-						nounouId: email
-					})
+					if (dataRow.matin || dataRow.midi || dataRow.soir) {
+						let currentDay = DAYS.indexOf(dataRow.jour)
+						disponibilites.push({
+							jour: currentDay,
+							dateDebutMatin: !dataRow.matin ? null : '07:00',
+							dateFinMatin: !dataRow.matin ? null : '12:00',
+							dateDebutMidi: !dataRow.midi ? null : '12:00',
+							dateFinMidi: !dataRow.midi ? null : '18:00',
+							dateDebutSoir: !dataRow.soir ? null : '18:00',
+							dateFinSoir: !dataRow.soir ? null : '22:00',
+							nounouId: email
+						})
+					}
 				})
 				this.updateDisponibiliteByNounouId(disponibilites)
 			}
@@ -135,12 +136,13 @@ export class DisponibilitesComponent implements OnInit {
 		this.disponibiliteService.getDisponibiliteByNounouId(email).subscribe({
 			next: (response: Disponibilite[]) => {
 				let temp = []
-				response.forEach(elt => {
+				DAYS.forEach(day => {
+					let disponibilite = this.extractDayFromDisponibilites(DAYS.indexOf(day), response)
 					temp.push({
-						jour: DAYS[elt.jour],
-						matin: elt.date_debut_matin && elt.date_fin_matin ? true : false,
-						midi: elt.date_debut_midi && elt.date_fin_midi ? true : false,
-						soir: elt.date_debut_soir && elt.date_fin_soir ? true : false,
+						jour: day,
+						matin: disponibilite?.dateDebutMatin && disponibilite?.dateFinMatin ? true : false,
+						midi: disponibilite?.dateDebutMidi && disponibilite?.dateFinMidi ? true : false,
+						soir: disponibilite?.dateDebutSoir && disponibilite?.dateFinSoir ? true : false,
 					})
 				})
 				if (temp.length !== 0) {
@@ -152,6 +154,14 @@ export class DisponibilitesComponent implements OnInit {
 				console.error(error.message)
 			}
 		})
+	}
+
+	extractDayFromDisponibilites(day: number, disponibilites: Disponibilite[]): any {
+		for (let disponibilite of disponibilites) {
+			if (disponibilite.jour === day) {
+				return disponibilite
+			}
+		}
 	}
 
 	updateDisponibiliteByNounouId(body: Disponibilite[]): void {
