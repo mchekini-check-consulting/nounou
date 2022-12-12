@@ -22,7 +22,7 @@ export class ChatService {
 
   getListFamilles(): Observable<Famille[]> {
     return this.http.get<Famille[]>(
-      "api/v1/search/famille?nom=&prenom=&ville=&jour=&heureDebut=&heureFin="
+      "api/v1/search/famille?nom=&prenom=&ville=&jour=-1&heureDebut=&heureFin="
     );
   }
 
