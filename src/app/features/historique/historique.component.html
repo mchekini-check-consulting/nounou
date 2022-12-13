@@ -19,7 +19,9 @@
 >
   <mat-expansion-panel
     style="margin-top: 10px; padding: 1%; width: 94%; margin-left: 2%"
-    hideToggle
+    (afterCollapse)="afterCollapse(el.emailFamille)"
+    (afterExpand)="afterExpand(el.emailFamille)"
+    [expanded]="isExpand(el.emailFamille)"
   >
     <mat-expansion-panel-header style="padding-right: 0px">
       <mat-panel-title style="max-width: 150px">
@@ -89,7 +91,7 @@
             type="button"
             class="btn btn-danger navbar-btn"
             style="margin: 0px 5px; width: 100px"
-            (click)="actionRejeter(el.emailNounou)"
+            (click)="actionRejeter(el.emailFamille)"
             [disabled]="el.etat != 'Instance'"
           >
             Rejeter
@@ -98,7 +100,7 @@
             type="button"
             class="btn btn-primary navbar-btn"
             style="width: 100px"
-            (click)="actionConfirmer(el.emailNounou)"
+            (click)="actionConfirmer(el.emailFamille)"
             [disabled]="el.etat != 'Instance'"
           >
             Confirmer

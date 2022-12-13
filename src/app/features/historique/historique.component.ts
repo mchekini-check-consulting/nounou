@@ -7,7 +7,7 @@ import { ToastrService } from "ngx-toastr";
 
 import { interval } from "rxjs/internal/observable/interval";
 import { Subscription } from "rxjs";
-import { startWith, switchMap } from "rxjs/operators";
+import { expand, startWith, switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-historique",
@@ -23,9 +23,31 @@ export class HistoriqueComponent implements OnInit {
 
   listAllInterventions: InfosIntervention[] = [];
 
+  expanded: stateExpand[] = [];
+
   timeInterval: Subscription;
 
   displayedColumns: string[] = ["position", "name", "weight", "symbol"];
+
+  afterCollapse(email: string): void {
+    const index = this.expanded.findIndex((exp) => exp.email == email);
+    if (index == -1) return;
+    this.expanded[index].state = false;
+  }
+
+  afterExpand(email: string): void {
+    const index = this.expanded.findIndex((exp) => exp.email == email);
+    if (index == -1) return;
+    this.expanded[index].state = true;
+  }
+
+  isExpand(email: string): boolean {
+    console.log(this.expanded);
+    const index = this.expanded.findIndex((exp) => exp.email == email);
+    if (index == -1) return false;
+    console.log(this.expanded[index].state);
+    return this.expanded[index].state;
+  }
 
   ngOnInit(): void {
     this.timeInterval = interval(5000)
@@ -34,9 +56,20 @@ export class HistoriqueComponent implements OnInit {
         switchMap(() => this.interventionService.getAllInterventions())
       )
       .subscribe(
-        (resp) => (this.listAllInterventions = [...resp]),
+        (resp) => (
+          (this.listAllInterventions = [...resp]), this.setStateExpand(resp)
+        ),
         (err) => console.log("HTTP Error", err)
       );
+  }
+
+  setStateExpand(resp: InfosIntervention[]): void {
+    // Vérifier pour les nouvelles insertions d'interventions
+    resp.map((e) => {
+      if (!this.expanded.find((exp) => exp.email == e.emailFamille)) {
+        this.expanded.push({ email: e.emailFamille, state: false });
+      }
+    });
   }
 
   getAllInterventions(): void {
@@ -68,4 +101,9 @@ export class HistoriqueComponent implements OnInit {
   actionRenouveler(): void {
     this.toastr.success("Action effectuée avec succès !");
   }
+}
+
+interface stateExpand {
+  email: string;
+  state: boolean;
 }

@@ -22,7 +22,12 @@ export const ROUTES: RouteInfo[] = [
   },
   { path: "/recherche", title: "Recherche", icon: "pe-7s-graph", class: "" },
   { path: "/messagerie", title: "Messagerie", icon: "pe-7s-graph", class: "" },
-  { path: "/historique", title: "Historique", icon: "pe-7s-graph", class: "" },
+  {
+    path: "/historique",
+    title: "Interventions",
+    icon: "pe-7s-graph",
+    class: "",
+  },
   { path: "/infos", title: "Mes informations", icon: "pe-7s-graph", class: "" },
 ];
 
