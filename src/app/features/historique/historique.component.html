@@ -1,1 +1,154 @@
-<h1>Fonctionnalité à développer</h1>
+<div
+  style="margin-top: 35px; text-align: center"
+  *ngIf="listAllInterventions.length == 0"
+>
+  Aucune demande d'intervention enregistrée pour le moment.
+</div>
+<div
+  style="margin-top: 20px; margin-bottom: -10px; width: 94%; margin-left: 2%"
+  class="example-action-buttons"
+  *ngIf="listAllInterventions.length > 0"
+>
+  <button mat-button (click)="accordion.openAll()">Ouvrir Tout</button>
+  <button mat-button (click)="accordion.closeAll()">Fermer Tout</button>
+</div>
+<mat-accordion
+  class="example-headers-align"
+  multi
+  *ngFor="let el of listAllInterventions"
+>
+  <mat-expansion-panel
+    style="margin-top: 10px; padding: 1%; width: 94%; margin-left: 2%"
+    hideToggle
+  >
+    <mat-expansion-panel-header style="padding-right: 0px">
+      <mat-panel-title style="max-width: 150px">
+        {{ el.nom }} {{ el.prenom }}
+      </mat-panel-title>
+      <mat-panel-description class="row" style="margin-right: 0px">
+        <span
+          style="margin-right: 10px; text-align: center"
+          class="col-md-6 col-xl-8"
+        >
+          {{ el.detailIntervention.length }}
+          {{
+            el.detailIntervention.length > 1 ? "interventions" : "intervention"
+          }}
+          / semaine - du {{ el.periode }}
+        </span>
+        <span
+          *ngIf="el.etat == 'Rejetée'"
+          class="label label-warning col-md-2 col-xl-1"
+          style="
+            font-size: 15px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 15px;
+            max-width: 100px;
+          "
+          >{{ el.etat }}
+        </span>
+        <span
+          *ngIf="el.etat == 'Instance'"
+          class="label label-info col-md-2 col-xl-1"
+          style="
+            font-size: 15px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 15px;
+            max-width: 100px;
+          "
+          >{{ el.etat }}
+        </span>
+        <span
+          *ngIf="el.etat == 'Annulée'"
+          class="label label-danger col-md-2 col-xl-1"
+          style="
+            font-size: 15px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 15px;
+            max-width: 100px;
+          "
+          >{{ el.etat }}
+        </span>
+        <span
+          *ngIf="el.etat == 'Confirmée'"
+          class="label label-success col-md-2 col-xl-1"
+          style="
+            font-size: 15px;
+            text-align: center;
+            padding: 10px;
+            border-radius: 15px;
+            max-width: 100px;
+          "
+          >{{ el.etat }}
+        </span>
+        <span class="col-md-4 col-xl-3" style="text-align: end">
+          <button
+            type="button"
+            class="btn btn-danger navbar-btn"
+            style="margin: 0px 5px; width: 100px"
+            (click)="actionRejeter(el.emailNounou)"
+            [disabled]="el.etat != 'Instance'"
+          >
+            Rejeter
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary navbar-btn"
+            style="width: 100px"
+            (click)="actionConfirmer(el.emailNounou)"
+            [disabled]="el.etat != 'Instance'"
+          >
+            Confirmer
+          </button>
+        </span>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <table
+      mat-table
+      [dataSource]="el.detailIntervention"
+      class="mat-elevation-z8"
+      style="background: bottom"
+    >
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>Jour</th>
+        <td mat-cell *matCellDef="let element">{{ element.jour }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center">
+          Matin
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          {{ element.matin }}
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center">
+          Midi
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          {{ element.midi }}
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center">
+          Soir
+        </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center">
+          {{ element.soir }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </mat-expansion-panel>
+</mat-accordion>
