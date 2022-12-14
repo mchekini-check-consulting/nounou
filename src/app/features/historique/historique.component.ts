@@ -7,7 +7,7 @@ import { ToastrService } from "ngx-toastr";
 
 import { interval } from "rxjs/internal/observable/interval";
 import { Subscription } from "rxjs";
-import { expand, startWith, switchMap } from "rxjs/operators";
+import { startWith, switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-historique",
@@ -50,6 +50,7 @@ export class HistoriqueComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllInterventions();
     this.timeInterval = interval(5000)
       .pipe(
         startWith(0),
@@ -75,6 +76,7 @@ export class HistoriqueComponent implements OnInit {
   getAllInterventions(): void {
     this.interventionService.getAllInterventions().subscribe((resp) => {
       this.listAllInterventions = [...resp];
+      this.setStateExpand(resp);
     });
   }
 
