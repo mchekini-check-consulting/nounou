@@ -16,6 +16,6 @@ export class NounouService {
   }
 
   public updateNounou(email: string, nounou: Nounou): Observable<Nounou> {
-    return this.http.put<Nounou>(`${this.nounouApiUrl}/udpate`, nounou);
+    return this.http.put<Nounou>(`${this.nounouApiUrl}/update`, nounou);
   }
 }
